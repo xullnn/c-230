@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div class="x">
+      <div class="horizontal"></div>
+      <div class="vertical"></div>
+    </div>
+  </body>
+  <script type="text/javascript">
+      var x = document.querySelector('.x');
+      document.addEventListener('mousemove', function(event) {
+        var left = String(event.clientX) + 'px';
+        var up = String(event.clientY) + 'px';
+        x.style.left = left;
+        x.style.top = up;
+      });
+
+      document.addEventListener('keydown', function(event) {
+        var keyValue = event.key;
+        var color;
+        if (keyValue === 'b') {
+          color = 'blue';
+        } else if (keyValue === 'g') {
+          color = 'green';
+        } else  if (keyValue === 'r') {
+          color = 'red';
+        }
+
+        if (color) {
+          for(let i = 0; i < x.children.length; i += 1) {
+            x.children[i].style.background = color;
+          }
+        }
+      })
+  </script>
+  <style media="screen">
+    .x {
+      position: absolute;
+      transform: rotate(45deg);
+      top: 20px;
+      left: 20px;
+    }
+
+    .x .horizontal {
+      width: 45px;
+      height: 5px;
+      position: absolute;
+      left: -20px;
+      background: red;
+    }
+
+    .x .vertical {
+      height: 45px;
+      width: 5px;
+      background: red;
+      position: absolute;
+      left: 0px;
+      top: -20px;
+    }
+  </style>
+</html>
