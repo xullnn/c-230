@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>View Bookings</title>
+  </head>
+  <body>
+    <h1>Bookings:</h1>
+    <div id="main">
+      <ul id="dates">
+      </ul>
+    </div>
+
+    <script type="text/javascript">
+      // retrieve dates
+      var dates;
+
+      (function() {
+        var request = new XMLHttpRequest();
+        request.open('GET', 'http://localhost:3000/api/bookings');
+        request.addEventListener('load', function() {
+          dates = JSON.parse(request.response);
+          var ul = document.querySelector('#dates');
+
+          // embed dates into ul list
+          dates.forEach(date => {
+            var li = document.createElement('li');
+            li.textContent = date;
+            li.setAttribute('id', date);
+
+            // retrieve bookings for each date
+            // construct nest list, insert into every li
+            (function retrieveBookings() { // every date has many bookings
+              var request = new XMLHttpRequest();
+              request.open('GET', ('http://localhost:3000/api/bookings' + `/` + date));
+              request.addEventListener('load', function() {
+                var bookings = JSON.parse(request.response);
+                var nestedLi;
+                var innerUl = document.createElement('ul');
+
+                bookings.forEach(booking => {
+                  nestedLi = document.createElement('li');
+                  nestedLi.textContent = booking.join(' | ');
+                  innerUl.appendChild(nestedLi);
+                });
+
+                innerUl.style.display = 'none';
+                li.appendChild(innerUl);
+              });
+
+              request.send();
+            })();
+
+            ul.appendChild(li);
+          });
+
+          // hide or show details
+          document.querySelector('#main').addEventListener('click', function(event) {
+            event.preventDefault();
+            var target = event.target;
+            if (target && target.tagName === 'LI' && target.lastElementChild.tagName === 'UL') {
+              if (target.lastElementChild.getAttribute('style', 'display').match(/none/)) {
+                target.lastElementChild.style.display = '';
+              } else {
+                target.lastElementChild.style.display = 'none';
+              };
+            };
+          })
+        });
+
+        request.send();
+      })();
+    </script>
+  </body>
+</html>

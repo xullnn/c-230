@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>API practice</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      function availableSchedules() {
+        var request = new XMLHttpRequest();
+        request.open('GET', 'http://localhost:3000/api/schedules');
+        request.responseType = 'json';
+        request.timeout = 5000;
+        var t1, t2, response;
+        t1 = Date.now();
+
+        request.addEventListener('load', function() {
+          t2 = Date.now();
+          response = request.response;
+          var requestTime = t2 - t1;
+
+          var scheduleCounts = {}
+          if (response.length > 0) {
+            console.log(response)
+            var availables = response.filter(schedule => schedule.student_email === null);
+            var key;
+            availables.forEach(schedule => {
+              key = `staff ${schedule.staff_id}`
+              scheduleCounts[key] = scheduleCounts[key] + 1 || 1
+            })
+            console.log(scheduleCounts);
+          } else {
+            alter('There are currently no schedules available for booking.')
+          }
+        });
+
+        request.addEventListener('timeout', function(event) {
+          alert('It is taking longer than usual, please try again later.')
+        });
+
+        request.addEventListener('loadend', function(event) {
+          alert('The request has completed.');
+        })
+
+        request.send();
+
+      };
+
+      document.addEventListener('DOMContentLoaded', availableSchedules);
+
+    </script>
+  </body>
+</html>

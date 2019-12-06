@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Booking Schedule</title>
+    <style media="screen">
+      #student_creation {
+        display: none;
+      }
+    </style>
+
+    <script type="text/javascript">
+      // retrieve available schedules
+      var schedules;
+
+      (function() {
+        var request = new XMLHttpRequest();
+        request.open('GET', 'http://localhost:3000/api/schedules');
+        request.addEventListener('load', function() {
+          schedules = JSON.parse(request.response).filter(schedule => {
+            return schedule.student_email === null;
+          });
+        })
+        request.send();
+      })();
+
+      // retrieve all staffs, we need thier name in the form
+      var staffs;
+
+      (function() {
+        var request = new XMLHttpRequest();
+        request.open('GET', 'http://localhost:3000/api/staff_members');
+        request.addEventListener('load', function() {
+          staffs = JSON.parse(request.response);
+        })
+        request.send();
+      })();
+    </script>
+  </head>
+  <body>
+  <div class="main">
+    <form id="booking_schedule" action="/api/bookings" method="post">
+      <h1>Schedules</h1>
+      <p>Please select one schedule:
+        <select id="schedules" name="id">
+        </select>
+        <span id="timer">Schdules will be loaded in 7 seconds, please wait.</span>
+      </p>
+
+      <p>Email:
+        <input type="text" name="student_email">
+        <button type="submit">Submit</button>
+      </p>
+    </form>
+
+    <form id="student_creation" action="/api/students" method="post">
+      <div>
+        <label>Email:</label>
+        <input id="email" type="text" name="email" value="">
+      </div>
+        <label>Name:</label>
+        <input id="name" type="text" name="name" value="">
+      <div>
+        <label>Booking Sequence:</label>
+        <input id="booking_sequence" type="text" name="booking_sequence" value="">
+      </div>
+      <button type="submit" name="button">Submit</button>
+    </form>
+  </div>
+
+  <script type="text/javascript">
+
+    // insertion of schedules and other event binding operations will be delayed by 8 seconds
+    var delay = 0;
+    if (!schedules) delay = 8000;
+    setTimeout(function() {
+
+      // insert schedule options
+      (function insertSchedules() {
+        var options = document.querySelector('#schedules');
+          var staff, text, option;
+          schedules.forEach(schedule => {
+            staff = staffs.find(staff => staff.id === schedule.staff_id);
+            text = staff.name + ' | ' + schedule.date + ' | ' + schedule.time;
+            option = document.createElement('option');
+            option.value = schedule.id;
+            option.textContent = text;
+            options.appendChild(option);
+          })
+          // clear hint for waiting time
+          document.querySelector('#booking_schedule p').removeChild(document.querySelector('#timer'));
+      })();
+
+      function resetForms() {
+        Array.from(document.querySelectorAll('form')).forEach(form => form.reset());
+      };
+
+      // major event circle
+      // first try at booking a schedule
+      document.querySelector('#booking_schedule').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var form = event.currentTarget;
+        var formData = new FormData(form);
+        var inputEmail = formData.get('student_email');
+
+        let request = new XMLHttpRequest();
+        request.open('POST', 'http://localhost:3000/api/bookings');
+        // logic branches based on the response status of the first try at booking schedule
+        request.addEventListener('load', function() {
+          if (request.status === 204) {
+            alert('Schdule booked successfully!');
+            resetForms();
+          } else if (request.status === 404) {  // show the form for registering new student &
+            let studentForm = document.querySelector('#student_creation');
+            let text = request.responseText;
+            let booking_sequence = text.match(/\d+$/)[0];
+            studentForm.style.display = 'block';
+
+            document.querySelector('#email').value = inputEmail;
+            document.querySelector('#booking_sequence').value = booking_sequence;
+
+            studentForm.addEventListener('submit', function(event) {
+              event.preventDefault();
+              let request = new XMLHttpRequest();
+              request.open('POST', 'http://localhost:3000/api/students');
+              request.addEventListener('load', function() {
+                alert(request.responseText);
+
+                let requestForBookingAgain = new XMLHttpRequest();
+                requestForBookingAgain.open('POST', 'http://localhost:3000/api/bookings');
+                requestForBookingAgain.addEventListener('load', function() {
+                  if (requestForBookingAgain.status === 204) {
+                    alert('Schdule booked successfully!');
+                    studentForm.style.display = 'none';
+                    resetForms();
+                  };
+                });
+
+                requestForBookingAgain.send(formData);
+              });
+
+              request.send(new FormData(studentForm));
+            });
+
+            alert(text);
+          };
+        });
+
+        request.send(formData);
+      });
+    }, delay);
+  </script>
+  </body>
+</html>

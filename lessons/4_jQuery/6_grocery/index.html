@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="main.css">
+    <title>Grocery</title>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous">
+    </script>
+  </head>
+  <body>
+    <div class="main">
+      <form class="" action="index.html" method="post">
+        <fieldset>
+          <h3><label>Item name:</label></h3>
+          <input type="text" name="item_name">
+          <h3><label>Quantity:</label></h3>
+          <input type="text" name="quantity" value="1">
+          <br>
+          <button type="submit" id="add_button">Add</button>
+        </fieldset>
+      </form>
+
+      <div id="secondary">
+        <h2>Groceries</h2>
+        <ul id="groceries">
+        </ul>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      // grasp existed list item if any, then wrap it into an object
+      // so we may be able to update the quantity
+      var items = {};
+      var $form = $('form');
+
+      $('ul#groceries li').each(function(_, li) {
+        var itemName = li.lastChild.textContent.trim();
+        var quantity = +li.firstElementChild.textContent.trim();
+        items[itemName] = quantity;
+      });
+
+      $form.on('submit', function(event) {
+        event.preventDefault();
+        var itemName = $("input[name='item_name']").val();
+        var quantity = +$("input[name='quantity']").val();
+
+        if (items[itemName]) {
+          items[itemName] += quantity;
+        } else {
+          items[itemName] = quantity;
+        }
+
+        // render new list
+        var secondDiv = $('#secondary').get(0);
+        secondDiv.removeChild($('ul').get(0));
+        var newUl = document.createElement('ul');
+          for (let name in items) {
+            var newLi = document.createElement('li');
+            var newSpan = document.createElement('span');
+            var textNode = document.createTextNode(name);
+            newSpan.textContent = String(items[name]) + ' ';
+            newSpan.classList.add('quantity')
+            newLi.appendChild(newSpan);
+            newLi.appendChild(textNode);
+            newUl.append(newLi);
+          };
+
+        secondDiv.appendChild(newUl);
+        // directly append text content (html) by using jQuery's `append`
+        // $('ul').append("<li><span class='quantity'>" + quantity + "</span>" + itemName + "</li>")
+
+      })
+
+      console.log(items); // not a jquery object
+    </script>
+  </body>
+</html>

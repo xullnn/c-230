@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Existing Page</h1>
+
+    <div id="store"></div>
+
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function() {
+        var store = document.getElementById('store');
+
+        var request = new XMLHttpRequest();
+        request.open('GET', 'https://ls-230-web-store-demo.herokuapp.com/products');
+
+        request.addEventListener('load', function(event) {
+          store.innerHTML = request.response;
+        });
+
+        request.send();
+
+        store.addEventListener('click', function(event) {
+          var target = event.target;
+          if(target.tagName !== 'A') {
+            return;
+          }
+
+          event.preventDefault();
+
+          var request = new XMLHttpRequest();
+          request.open('GET', 'https://ls-230-web-store-demo.herokuapp.com' + target.getAttribute('href'));
+
+          request.addEventListener('load', function(event) {
+            store.innerHTML = request.response;
+          });
+
+          request.send();
+        });
+
+        // form url
+        // form data, grasp when click submit
+          store.addEventListener('submit', function(event) {
+            var editRequest = new XMLHttpRequest();
+            var form = document.querySelector('form');
+            var formData = new FormData(form);
+
+            editRequest.open('POST', 'https://ls-230-web-store-demo.herokuapp.com' + form.getAttribute('action'));
+            editRequest.setRequestHeader('Authorization', 'token AUTH_TOKEN');
+            
+            event.preventDefault();
+
+            editRequest.addEventListener('load', function() {
+              store.innerHTML = editRequest.response;
+            })
+
+            editRequest.send(formData);
+          })
+      })
+    </script>
+  </body>
+</html>

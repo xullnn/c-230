@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Cancellations</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      function cancelSchedule(schedule_id) {
+        let request = new XMLHttpRequest();
+        request.open('DELETE', 'http://localhost:3000/api/schedules/' + String(schedule_id));
+        request.addEventListener('load', function() {
+          if (request.status === 204) {
+            alert('Schedule wassuccessfully deleted!')
+          } else {
+            alert(request.responseText);
+          }
+        });
+        request.send();
+      };
+
+      function cancleBooking(booking_id) {
+        let request = new XMLHttpRequest();
+        request.open('PUT', 'http://localhost:3000/api/bookings/' + String(booking_id));
+        request.addEventListener('load', function() {
+          if (request.status === 204) {
+            alert('Booking was successfully cancelled!');
+          } else {
+            alert(request.responseText);
+          }
+        })
+        request.send();
+      };
+    </script>
+  </body>
+</html>

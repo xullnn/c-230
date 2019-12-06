@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Traversal</title>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous">
+    </script>
+  </head>
+  <body>
+    <blockquote>
+      <p>You have no chance to survive make your time.</p>
+    </blockquote>
+
+    <blockquote>
+      <p>Ha ha ha ha ...</p>
+    </blockquote>
+
+    <blockquote class="highlight">
+      <p>Captain !!</p>
+    </blockquote>
+
+    <blockquote>
+      <p>Take off every Zig!</p>
+    </blockquote>
+
+    <ul id="navigation">
+      <li>
+        <a href="#">Categories</a>
+        <ul>
+          <li><a id="html" href="#">HTML</a></li>
+          <li><a id="css" href="#">CSS</a></li>
+          <li><a id="javascript" href="#">Javascript</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <script type="text/javascript">
+      $(function() { // DOM ready
+        $('p').parent('.highlight').css('color', 'blue');
+
+        $('#javascript').closest('ul').addClass('categories');
+      }); // DOM ready
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+      Creating schedule
+    </title>
+  </head>
+  <body>
+    <button id = "add_new_form" type="button" name="button">Add more schedules</button>
+
+    <div class='main'>
+      <form action="/api/schedules" method="post">
+        <fieldset>
+          <legend>Schedule information:</legend>
+          <div>
+            <label>Staff:</label>
+            <select id="staffs">
+            </select>
+          </div>
+          <div>
+            <label>Date:</label>
+            <input type="text" name="date" placeholder="yyyy-mm-dd">
+          </div>
+          <div>
+            <label>Time:</label>
+            <input type="text" name="time" placeholder="hh:mm">
+          </div>
+        </fieldset>
+      </form>
+    </div>
+
+    <button id="submitForm" type="submit" name="button">Submit</button>
+    <script type="text/javascript">
+
+      // get all staff members
+      var request = new XMLHttpRequest();
+      request.open('GET', 'http://localhost:3000/api/staff_members');
+      request.responseType = 'json';
+      var staffs;
+
+      request.addEventListener('load', function() {
+        staffs = request.response;
+        // insert options
+        var staffSelections = document.querySelector('#staffs');
+        var option;
+        staffs.forEach(staff => {
+          option = document.createElement('option');
+          option.name = 'staff_id';
+          option.value = staff.id;
+          option.textContent = staff.name;
+          staffSelections.appendChild(option);
+        })
+      });
+
+      request.send();
+
+      // append new form
+      var main = document.querySelector('.main')
+      var newFormButton = document.querySelector('#add_new_form');
+      var originForm = document.querySelector('form')
+      var newForm;
+
+      newFormButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        newForm = originForm.cloneNode(true);
+        newForm.reset();
+        main.appendChild(newForm);
+      });
+
+      // handle submision
+      var submitButton = document.querySelector('#submitForm');
+      var formData, jsonData, requestForCreating;
+
+      submitButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        var forms = Array.from(document.querySelectorAll('form'));
+        var formDatum;
+        var staff_id;
+        var formData = forms.map(form => {
+          formDatum = new Object();
+          staff_id = Array.from(form.querySelectorAll("option")).find(o => o.selected === true).value;
+          for(let pair of (new FormData(form))) {
+            formDatum[pair[0]] = pair[1];
+          };
+          formDatum['staff_id'] = staff_id;
+          return formDatum;
+        })
+
+        if (formData.length > 0) {
+          jsonData = JSON.stringify({schedules: formData});
+        };
+
+        // send request with all collected data from forms on the page
+        requestForCreating = new XMLHttpRequest();
+        requestForCreating.open('POST', 'http://localhost:3000/api/schedules');
+        requestForCreating.setRequestHeader('Content-Type', 'application/json');
+
+        requestForCreating.addEventListener('load', function() {
+          alert(requestForCreating.responseText);
+          if (requestForCreating.status === 201) {
+            forms.forEach(form => form.reset());
+          }
+        });
+
+        requestForCreating.send(jsonData);
+
+      });
+    </script>
+  </body>
+</html>
