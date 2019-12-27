@@ -1,0 +1,14 @@
+.delete_box {
+  width: 250px;
+  height: 100px;
+  background-color: rgba(0, 0, 0, 0.4);
+  margin: auto;
+  display: flex;
+  justify-content:  space-around;
+}
+
+button {
+  height: 30px;
+  width: 70px;
+  margin: auto;
+};

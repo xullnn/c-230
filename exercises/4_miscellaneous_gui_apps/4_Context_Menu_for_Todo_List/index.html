@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Context Menu</title>
+    <script type="text/javascript" src="handlebars.min-v4.5.3.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="delete.css">
+  </head>
+  <body>
+    <main>
+      <div class="delete_box">
+        <button type="button" name="button" id="delete">Delete</button>
+        <button type="button" name="button" id="cancel">Cancel</button>
+      </div>
+
+
+      <ul id="todo_list">
+      </ul>
+
+    </main>
+
+    <div id="menu">
+      <ul>
+        <li id="edit"><a>Edit</a></li>
+        <li id="show_details"><a>Show Details</a></li>
+        <li id="menu_delete"><a>Delete</a></li>
+      </ul>
+    </div>
+  <script type="text/x-handlebar" id="todo_item_template">
+    <li id={{id}}>
+      <span class="indentation"> - </span>{{title}}
+    </li>
+  </script>
+
+  <script type="text/x-handlebar" id="menu_template">
+
+  </script>
+  <!-- <script type="text/javascript" src="languages.js"></script> -->
+  <script type="text/javascript" src="delete.js"></script>
+  </body>
+</html>

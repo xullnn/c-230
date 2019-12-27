@@ -1,0 +1,29 @@
+main {
+  width: 100%;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.fields {
+  flex-basis: 140px;
+}
+
+section#car_list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+figure {
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
+img {
+  padding:5px;
+  width: 200px;
+  height: 100px;
+}
