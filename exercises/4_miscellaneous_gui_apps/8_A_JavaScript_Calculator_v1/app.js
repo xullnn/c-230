@@ -57,7 +57,7 @@ var Calculator = (function() {
     updateCurrentInputAndClassName(event);
     if (afterEvaluation) expression = ''; // if NEG is pressed right after `=` operation
     expression += (' ' + currentInput);
-    renderExpression()
+    renderExpression();
     turnOnValid(nextAllows[className]);
     afterEvaluation = false;
   };
@@ -69,7 +69,7 @@ var Calculator = (function() {
     } else {
       expression += (' ' + currentInput);
     };
-    renderExpression()
+    renderExpression();
     turnOnValid(nextAllows[className]);
     afterEvaluation = false;
   };
@@ -77,15 +77,15 @@ var Calculator = (function() {
   function handleClear_all(event) {
     expression = '';
     result = undefined;
-    turnOnValid(nextAllows['initial']);
     renderExpression();
+    turnOnValid(nextAllows['initial']);
   };
 
   function handleClear_entry(event) {
     var fragments = expression.split(/\s/)
     fragments.pop();
     expression = fragments.join(' ');
-    renderExpression()
+    renderExpression();
     afterEvaluation = false;
   };
 
@@ -95,12 +95,8 @@ var Calculator = (function() {
     turnOnValid(nextAllows['after_evaluation']);
     result = eval(expression);
     expression = String(result);
-    renderResult(result);
-    afterEvaluation = true;
-  };
-
-  function renderResult(result) {
     $('#result').text(result);
+    afterEvaluation = true;
   };
 
   function renderExpression() {
