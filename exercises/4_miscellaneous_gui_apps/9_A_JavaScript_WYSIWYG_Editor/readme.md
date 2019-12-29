@@ -11,10 +11,6 @@ Then we need to read some doc to know what's the js' way to do this. Here are so
 
 References:
 
-- https://developer.mozilla.org/en-US/docs/Web/API/Document/designMode
-> `document.designMode` controls whether the entire document is editable.
-    - note the phrase "the entire document"
-
 - https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/contenteditable
 > The `contenteditable` global attribute is an enumerated attribute indicating if the element should be editable by the user. If so, the browser modifies its widget to allow editing.
 
@@ -158,4 +154,30 @@ RichEditor = (function() {
 RichEditor.init();
 ```
 
-## HTML
+The HTML, CSS and other resources [are here at github](https://github.com/xullnn/c-230/tree/master/exercises/4_miscellaneous_gui_apps/9_A_JavaScript_WYSIWYG_Editor).
+
+## A word about how to show the current editing mode(s)
+
+![](https://tva1.sinaimg.cn/large/006tNbRwgy1gadvnjc5o5j31l809o0v9.jpg)
+
+An important feature in this problem is to show the user which modes are on. For example, if `bold` and `italic` are both turned on, then the two corresponding buttons should be different from others. A simple way is to add different background color.
+
+My first try was to use a variable to record the return value of `document.execCommand()`, then change color based on that, but soon I found the behavior was a bit unpredictable. Then I tried to add a `data-triggered` attribute to each button, then toggle the value at each click, then to change the background based on the value. This way works but can only did half of the work. That's because when I used mouse cursor to click some styled text, the button won't change, but actually the editing mode has already changed to that style behind the scene. And if I press the button multiple times after moving the cursor, things may go wrong even further.
+
+Then I came up with a way to make sure after each clicking, whether on button or on edit area, the states will be checked and then reflect on the buttons' background.
+
+```js
+function renderBtnStates() {
+  var modesOn = [];
+  var modesOff = [];
+  Object.keys(icons).forEach(name => {
+    if (document.queryCommandState(name)) {
+      $('#' + name).css({'backgroundColor': 'lightgrey'});
+    } else {
+      $('#' + name).css({'backgroundColor': 'transparent'});
+    };
+  })
+};
+```
+
+This time I don't change the background on buttons' `click` events, I just toggle the editing mode during that event. I attach another `click` event listener to `main` element to iterate through the method names, check which modes are "on" and then render the background based on the data I just collected. So there are actually 2 events will be triggered by a `click` on buttons, but only one by a `click` on the editing area(due to event bubbling rule). Clicking on buttons will first call `execCommand()` to turn on an editing mode, then listener on `main` element updates the view based on the information collected under the hood. Moving cursor on editing area may or may not change the editing mode, this is done by browser, but either way the `renderBtnStates()` callback will be invoked to reflect the current turned on modes.
