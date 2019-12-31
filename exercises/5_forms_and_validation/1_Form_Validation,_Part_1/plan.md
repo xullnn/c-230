@@ -43,5 +43,4 @@ When to reenable submit button?
 References:
 
 - password regex: https://stackoverflow.com/questions/10557441/regex-to-allow-atleast-one-special-character-one-uppercase-one-lowercasein-an
-
 - email regex: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript

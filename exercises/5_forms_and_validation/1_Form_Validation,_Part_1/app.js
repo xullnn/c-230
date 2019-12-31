@@ -28,9 +28,8 @@ var Form = (function() {
     var $theInput = $(event.currentTarget);
     var name = $theInput.attr('name');
     var userInput = $theInput.val().trim();
-
     var regex = inputs.find(specObj => specObj.name === name).val_regex;
-    console.log(regex);
+
     if (userInput.match(regex)) {
       $theInput.attr('data-matched', 'true');
       renderCorrect(name);
@@ -43,7 +42,7 @@ var Form = (function() {
   function toggleButton() {
     var states = Array.from(document.querySelectorAll('input')).map(e => $(e).attr('data-matched'));
     var allCorrect = states.every(state => state === 'true');
-    console.log(states);
+
     if (allCorrect) {
       $('#submit').attr('disabled', false);
     } else {
