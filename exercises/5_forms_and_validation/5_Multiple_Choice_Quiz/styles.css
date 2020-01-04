@@ -1,0 +1,40 @@
+body {
+  font-family: sans-serif;
+}
+
+form {
+  margin: auto;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid grey;
+  padding: 20px;
+}
+
+form > * {
+  flex-basis: 100%;
+  margin-top: 25px;
+}
+
+label {
+  font-weight: lighter;
+}
+
+button {
+  font-size: 1.2em;
+  height: 30px;
+}
+
+#submit {
+  background-color: tomato;
+}
+
+p.message {
+  padding: 5px;
+  display: none;
+  border: 1px solid red;
+}
+
+p.correct_message {
+  border: 1px solid green;
+}

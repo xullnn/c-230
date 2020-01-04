@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>HTML Template File</title>
+    <title>Mulitple choices</title>
     <link rel="stylesheet" href="styles.css">
     <script type="text/javascript" src="handlebars.min-v4.5.3.js"></script>
     <script
@@ -12,8 +12,29 @@
     </script>
   </head>
   <body>
+
     <main>
+      <form action="index.html" method="post">
+        <button id="submit" class="submit">Submit</button>
+        <button id="reset" name="button">Reset</button>
+      </form>
     </main>
-  <script type="text/javascript" src="app.js"></script>
+
+    <script id="question_temp" type="text/handlebar">
+      {{#each questions}}
+        <div>
+          <p class="question_description">{{this.description}}</p>
+          {{#each options}}
+            <div>
+              <input type="radio" name="{{@../index}}" value="{{this}}">
+              <label>{{this}}</label>
+            </div>
+          {{/each}}
+          <p class="message" id={{this.id}}>Answer States.</p>
+        </div>
+      {{/each}}
+    </script>
+    <script type="text/javascript" src="app.js"></script>
+
   </body>
 </html>
