@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Practice Template</title>
+    <style media="screen">
+
+    </style>
+  </head>
+  <body>
+
+  </body>
+
+  <script type="text/javascript">
+    let request = new XMLHttpRequest();
+    request.open('GET', 'https://api.github.com/repos/rails/rails');
+    // request.responseType = 'json';
+
+    request.addEventListener('load', function() {
+      let data = JSON.parse(request.response);
+      console.log(request.status);
+      console.log(data.open_issues_count);
+    });
+
+    request.addEventListener('error', function() {
+      console.log('The request can not be completed.')
+    })
+
+    request.send();
+  </script>
+</html>

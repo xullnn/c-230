@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>On the River</title>
+  </head>
+  <body>
+    <h1>On The River</h1>
+    <p>The sun is low</p>
+    <p>The waters flow</p>
+  </body>
+
+  <script type="text/javascript">
+    // console.log('Hello');
+    function walk(node, callback) {
+      if (callback) callback(node);
+      for(let i = 0; i < node.childNodes.length; i += 1) {
+        walk(node.childNodes[i], callback)
+      }
+    };
+
+    // 1
+
+    // function getByTag(tag) {
+    //   let result = [];
+    //   walk(document, function(node) {
+    //     if (node.tagName === tag) {
+    //       result.push(node)
+    //     }
+    //   })
+    //
+    //   console.log(result);
+    // }
+    //
+    // getByTag('P');
+
+  </script>
+</html>

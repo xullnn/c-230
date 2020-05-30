@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="jQuery_3_4_1.js"></script>
+
+    <title></title>
+  </head>
+  <body>
+
+    <div id='a'> I am A!
+      <div id='b'> I am B!
+        <div id='c'>
+          I am C!
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      let b = $('#b');
+      let c = $('#c');
+
+      b.on('click', function(event) {
+        //event.stopPropagation();
+        console.log($(event.target).attr('id'));
+      })
+
+      c.on('click', function(event) {
+        event.stopPropagation();
+        console.log($(event.target).attr('id'));
+      })
+    </script>
+  </body>
+</html>

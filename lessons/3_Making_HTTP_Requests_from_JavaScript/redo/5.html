@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Practice Template</title>
+    <style media="screen">
+
+    </style>
+  </head>
+  <body>
+    <h1>Existing Page</h1>
+
+    <div id="store"></div>
+  </body>
+
+  <script type="text/javascript">
+    let host = 'https://ls-230-web-store-demo.herokuapp.com';
+
+    let request = new XMLHttpRequest();
+    request.open('GET', host + '/products');
+
+    request.addEventListener('load', function(event) {
+      let store = document.getElementById('store');
+      store.innerHTML = request.response;
+    });
+
+    request.send();
+
+    store.addEventListener('click', function(event) {
+      let target = event.target;
+      if (target.tagName !== 'A') {
+        return;
+      };
+
+      event.preventDefault();
+
+      let request = new XMLHttpRequest(); // declared in new function scope
+      request.open('GET', host + target.getAttribute('href'));
+
+      request.addEventListener('load', function(event) {
+        store.innerHTML = request.response;
+
+        store.addEventListener('submit', function(event) {
+          event.preventDefault();
+
+          let data = new FormData(event.target);
+
+          let request = new XMLHttpRequest();
+          request.open('POST', host + event.target.getAttribute('action'));
+
+          request.addEventListener('loadend', () => { store.innerHTML = request.response; })
+
+          request.setRequestHeader('Authorization', 'token AUTH_TOKEN');
+
+          request.send(data);
+        })
+
+      });
+
+      request.send();
+
+    })
+  </script>
+</html>

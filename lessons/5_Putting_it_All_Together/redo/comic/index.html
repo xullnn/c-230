@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title></title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="comic.css" />
+    <script src="../jQuery_3_4_1.js"></script>
+  </head>
+  <body>
+    <div id="comic">
+      <div id="panel_1">
+        <div id="blind_1"></div>
+        <div id="blind_2"></div>
+      </div>
+
+      <div id="panel_2">
+        <div id="blind_3"></div>
+        <div id="blind_4"></div>
+      </div>
+
+      <div id="panel_3">
+        <div id="blind_5"></div>
+        <div id="blind_6"></div>
+      </div>
+
+      <div id="panel_4">
+        <div id="blind_7"></div>
+        <div id="blind_8"></div>
+        <div id="blind_9"></div>
+      </div>
+    </div>
+
+    <div class="restart_panel">
+      <a href="#" id="replay">Replay</a>
+    </div>
+    <script type="text/javascript">
+      $(function() {
+        let $blinds = $('div[id^=blind_]');
+
+        $('#comic').on('click', function() {
+          let $currentPanel;
+
+          function startAnimation() {
+            $blinds.each(function(round) {
+              $currentPanel = $(this);
+              $currentPanel.delay(500 + 1000 * round).animate({
+                top: $currentPanel.height() + parseInt($currentPanel.css('top')),
+                height: 0,
+              },500);
+            })
+          };
+;
+        startAnimation();
+
+
+        $('#replay').on('click', function(event) {
+          event.preventDefault();
+          $blinds.stop(true, true)
+          $blinds.removeAttr('style');
+          startAnimation();
+        });
+      });
+
+        // replay
+        // in order to be creative one must first gain control of the medium
+
+
+      });
+    </script>
+  </body>
+</html>

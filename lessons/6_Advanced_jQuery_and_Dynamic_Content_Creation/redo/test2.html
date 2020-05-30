@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="jQuery_3_4_1.js"></script>
+
+    <title></title>
+  </head>
+  <body>
+    <div class="container">
+      <h3>JavaScript</h3>
+      <p>JavaScript is a high-level, dynamic, untyped, and interpreted programming language. It ......</p>
+      <button type="button" name="button" class="show_more"><a href="#">show more</a></button>
+      <button type="button" name="button" class="show_less"><a href="#">show less</a></button>
+    </div>
+
+    <script type="text/javascript">
+      function nowAndThen() { // main thread
+        console.log("Now and then......");
+      };
+
+      setTimeout(nowAndThen, 0); // asynchronous
+
+      // main thread
+      var n = 0;
+      while(n <= 1000000000) {
+        if (n === 1000000000) console.log('I am done!');
+        n += 1;
+      };
+    </script>
+  </body>
+</html>

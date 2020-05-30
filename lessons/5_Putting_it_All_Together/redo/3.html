@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="jQuery_3_4_1.js"></script>
+  </head>
+  <body>
+    <ul>
+      <li><a href="#" data-block="gold">Gold Sponsors</a></li>
+      <li><a href="#" data-block="silver">Silver Sponsors</a></li>
+      <li><a href="#" data-block="bronze">Bronze Sponsors</a></li>
+    </ul>
+
+    <article data-block="gold">
+      <h1>Gold Sponsors</h1>
+    </article>
+
+    <article data-block="silver">
+      <h1>Silver Sponsors</h1>
+    </article>
+
+    <article data-block="bronze">
+      <h1>Bronze Sponsors</h1>
+    </article>
+
+    <script type="text/javascript">
+      $(function() {
+        $('a').on('click', function(e) {
+          e.preventDefault();
+
+          $('article').hide().filter(`[data-block=${$(this).data('block')}]`).show();
+        })
+      })
+    </script>
+  </body>
+</html>

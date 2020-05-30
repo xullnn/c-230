@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <style media="screen">
+      .x {
+        position: absolute;
+        transform: rotate(45deg);
+        top: 20px;
+        left: 20px;
+      }
+
+      .x .horizontal {
+        width: 45px;
+        height: 5px;
+        position: absolute;
+        left: -20px;
+        background: red;
+      }
+
+      .x .vertical {
+        height: 45px;
+        width: 5px;
+        background: red;
+        position: absolute;
+        left: 0px;
+        top: -20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="x">
+      <div class="horizontal"></div>
+      <div class="vertical"></div>
+    </div>
+
+    <script type="text/javascript">
+      var x = document.querySelector('.x');
+        var l, r;
+
+        document.addEventListener('mousemove', function(event) {
+          event.preventDefault();
+          l = event.clientX;
+          r = event.clientY;
+          x.style.left = String(l) + 'px';
+          x.style.top = String(r) + 'px';
+        });
+
+        document.addEventListener('keyup', function(event) {
+          let k = event.key;
+          let color;
+          if (k === 'g') {
+            color = 'green';
+          } else if (k === 'b') {
+            color = 'blue';
+          };
+
+          if (color) {
+            Array.from(x.children).forEach(child => {
+              console.log(child)
+              child.style.background = color;
+            })
+          }
+
+        })
+    </script>
+  </body>
+</html>

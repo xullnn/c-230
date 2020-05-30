@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src='./handlebars.min-v4.7.3.js'></script>
+    <script type="text/javascript" src='../jQuery_3_4_1.js'>
+
+    </script>
+
+    <script id="post" type="text/x-handlebars">
+      {{#each posts}}
+      <article>
+        <h1>{{title}}</h1>
+        <p><time>Posted on {{published}}</time></p>
+        {{{body}}}
+      </article>
+      {{#if tags}}
+        <p>
+          tags:
+          {{#each tags}}
+            {{>tagPartial}}
+          {{/each}}
+        </p>
+      {{else}}
+        <p>No tags.</p>
+      {{/if}}
+      {{/each}}
+
+    </script>
+
+    <title>Handlebars</title>
+  </head>
+  <body>
+
+  <script type="text/javascript">
+    var post = {
+      title: 'Lorem ipsum dolor sit amet',
+      published: 'April 1, 2015',
+      body: 'Sed ut perspiciatis unde omnis iste natus error sit <strong>voluptatem</strong> accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.',
+      tags: ['Food', 'Meat', 'Vegetables'],
+    };
+
+    let posts = { posts: [
+      {
+        title: 'Lorem ipsum dolor sit amet',
+        published: 'April 1, 2015',
+        body: 'Sed ut perspiciatis unde omnis iste natus error sit <strong>voluptatem</strong> accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.',
+        tags: ['Food', 'Meat', 'Vegetables'],
+      },
+
+      {
+        title: 'Another post',
+        published: 'April 1, 2015',
+        body: 'Sed ut perspiciatis unde omnis iste natus error sit <strong>voluptatem</strong> accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.',
+      },
+    ]}
+
+    Handlebars.registerPartial('tagPartial', "<span>{{this}} </span>")
+    let temFunc = Handlebars.compile($('#post').html());
+    $('body').append(temFunc(posts));
+
+
+
+  </script>
+  </body>
+</html>

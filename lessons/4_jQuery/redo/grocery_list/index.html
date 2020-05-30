@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title></title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="stylesheets/groceries.css" />
+    <link rel="stylesheet" href="stylesheets/print.css" media="print" />
+    <script src="jQuery_3_4_1.js"></script>
+  </head>
+  <body>
+    <main>
+      <form action="" method="post">
+        <h2>Add an item</h2>
+        <fieldset>
+          <label for="name">Item name</label>
+          <input type="text" name="name" id="name" />
+          <label for="quantity">Quantity</label>
+          <input type="text" name="quantity" id="quantity" />
+          <input type="submit" value="Add" />
+        </fieldset>
+      </form>
+      <h1>Groceries</h1>
+      <ul></ul>
+    </main>
+    <script type="text/javascript">
+      let itemName,
+          quantity,
+          existedItems = {};
+
+      function createItem(quantity, name) {
+        return `<li>${quantity} ${name}</li>`
+      };
+
+      function renderUl(items) {
+        $ul = $('ul');
+        $ul.empty();
+        let contentString;
+        for(let name in items) {
+          contentString = createItem(Number(items[name]), name);
+          $(contentString).appendTo('ul');
+        };
+      }
+
+      $(function() {
+
+        $('form').on('submit', function(event) {
+          event.preventDefault();
+
+          itemName = $('#name').val();
+          quantity = Number($('#quantity').val()) || 1;
+
+          if (existedItems[itemName]) {
+            existedItems[itemName] += quantity;
+          } else {
+            existedItems[itemName] = quantity;
+          }
+
+        renderUl(existedItems);
+
+        })
+
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>Inventory Order Form</title>
+    <meta charset="UTF-8" />
+    <script src="../jQuery_3_4_1.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+      new Promise((succ, fail) => {
+        console.log('Initial');
+
+        succ(); // this is an undefined function
+      }).then(() => {
+        throw new Error('Something failed');
+        console.log('Do this');
+      })
+      .catch(() => {
+        console.error('Do that');
+      })
+      .then(() => {
+        console.log('Do this, no matter what happened before');
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>jQuery Practice Template</title>
+    <script src="jQuery_3_4_1.js"></script>
+    <style media="screen">
+
+    </style>
+  </head>
+  <body>
+    <p>This is a text.</p>
+  </body>
+
+  <script type="text/javascript">
+    // var frameLength = 13;     // delay between each frame in milliseconds
+    // var speed = 400;           // duration of animation in milliseconds
+    // var steps = Math.round(speed / frameLength);
+    // var endTop = 250;
+    // var endLeft = 500;
+    // var paragraph = document.querySelector('p'); // p has "position: absolute" for this snippet
+    // var i = 0;
+    //
+    // var update = function() {
+    // paragraph.style.top = endTop * (i / steps) + 'px';
+    // paragraph.style.left = endLeft * (i / steps) + 'px';
+    // i += 1;
+    // i < steps && setTimeout(update, frameLength);
+    // };
+    //
+    // update();  // kick off the animation loop
+
+    let frameLength = 13, // time duration for each frame
+        duration = 400, // the time duration of the whole animation
+        totalFrame = Math.round(duration / frameLength),
+        endTop = 250,
+        endLeft = 500,
+        paragraph = document.querySelector('p'),
+        currentFrame = 0;
+
+      let update = functcurrentFrameon() {
+        paragraph.style.top = endTop * (currentFrame / totalFrame) + 'px';
+        paragraph.style.left = endLeft * (currentFrame / totalFrame) + 'px';
+        currentFrame += 1
+        currentFrame < totalFrame && setTimeout(update, frameLength);
+      };
+
+    update();
+  </script>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>jQuery Practice Template</title>
+    <script src="jQuery_3_4_1.js">
+
+    </script>
+    <style media="screen">
+
+    </style>
+  </head>
+  <body>
+    <span class="special">Hello.</span>
+    <hr>
+    <div class="">
+      <span class="special">Bye.</span>
+    </div>
+
+    <ul>
+      <li>In a list</li>
+
+      <ul>Not a li but ul.
+        <li>Also list</li>
+      </ul>
+    </ul>
+  </body>
+
+  <script type="text/javascript">
+    // $('span.special').css({
+    //   'backgroundColor': '#dd2341',
+    //   'color': '#ffffff',
+    //   'border': '1px solid #1dee24',
+    // })
+    //
+    // $('ul.featured').on('click', 'li', function(e) {
+    //   console.log($(this).text())
+    // });
+
+    let data = {title: 'Buy Milk', completed: true};
+    let xhr = new XMLHttpRequest();
+
+    xhr.responseType = 'json';
+    xhr.open("PUT", "http://my-todo-app.com/todos/15");
+    xhr.setRequestHeader('Content-type', 'application/json');
+
+    xhr.addEventListener('load', function(e) {
+      let responseJSON = e.response;
+      console.log(responseJSON.title);
+      console.log(responseJSON.completed);
+    })
+
+    xhr.send(JSON.stringify(data));
+  </script>
+</html>

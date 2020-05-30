@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      button {
+        width: 100px;
+        height: 100px;
+        background: blue;
+        color: white;
+        position: relative;
+        top: 25px;
+        left: 25px;
+      }
+
+      a {
+        display: block;
+        width: 150px;
+        height: 150px;
+        background: red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="/1">
+      <button>View Page</button>
+    </a>
+  </body>
+
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelector('button').addEventListener('click', function(event) {
+        event.preventDefault();
+        alert('Following the link was prevented.');
+      });
+
+      document.querySelector('a').addEventListener('click', function(event) {
+        event.stopPropagation();
+        alert('Click event on the anchor tag');
+      }, true);
+    });
+  </script>
+</html>

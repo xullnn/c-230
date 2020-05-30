@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>Dynamic jQuery Animations</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="stylesheets/canvas.css" />
+    <script type="text/javascript" src="../jQuery_3_4_1.js"></script>
+  </head>
+  <body>
+    <main>
+      <div id="canvas">
+      </div>
+      <p>
+        <a href="#" id="animate">Start</a>
+        |
+        <a href="#" id="stop">Stop</a>
+      </p>
+      <form action="" method="post">
+        <fieldset>
+          <h1>Add a shape</h1>
+          <h2>Type</h2>
+          <ul>
+            <li><label><input type="radio" name="shape_type" value="square" />Square</label></li>
+            <li><label><input type="radio" name="shape_type" value="circle" />Circle</label></li>
+            <li><label><input type="radio" name="shape_type" value="star" />Star</label></li>
+          </ul>
+          <dl>
+            <dt>
+              <label for="start_x">Starting Point</label>
+            </dt>
+            <dd>
+              <input type="number" name="start_x" placeholder="x:" value='0'/>
+              <input type="number" name="start_y" placeholder="y:" value='0'/>
+            </dd>
+            <dt>
+              <label for="end_x">Ending Point</label>
+            </dt>
+            <dd>
+              <input type="number" name="end_x" placeholder="x:" value='0'/>
+              <input type="number" name="end_y" placeholder="y:" value='0'/>
+            </dd>
+          </dl>
+          <input type="submit" value="Add" />
+        </fieldset>
+      </form>
+    </main>
+    <script type="text/javascript">
+      $(function() {
+
+        let $form = $('form');
+
+        function createShape(formData) {
+          let [shape, sLeft, sTop, eLeft, eTop] = formData.map(e => e.value);
+          console.log([shape, sLeft, sTop, eLeft, eTop])
+          let div = document.createElement('div');
+          div.classList.add(shape);
+          let $shape = $(div);
+          $shape.attr({
+            'data-startTop': sTop || 0,
+            'data-startLeft': sLeft || 0,
+            'data-endTop': eTop || 0,
+            'data-endLeft': eLeft || 0,
+          });
+
+          $shape.css({
+            'top': sTop + 'px',
+            'left': sLeft + 'px',
+          });
+
+          return div;
+        };
+
+        function resetPosition($shapes) {
+          $shapes.stop(true);
+          $shapes.each((i, shape) => {
+            $(shape).css({
+              top: $(shape).attr('data-startTop'),
+              left: $(shape).attr('data-startLeft'),
+            })
+          })
+        };
+
+        function animateShapes($shapes) {
+          $shapes.each(function(_, shape) {
+            $(shape).animate({
+              'top': $(shape).attr('data-endtop') + 'px',
+              'left': $(shape).attr('data-endleft') + 'px',
+            }, 2000);
+          })
+        };
+
+        $form.on('submit', function(event) {
+          event.preventDefault();
+          formData = $form.serializeArray();
+          $('#canvas').append(createShape(formData));
+        });
+
+        $('#animate').on('click', function(event) {
+          let $shapes = $('#canvas div');
+          event.preventDefault();
+          resetPosition($shapes);
+          animateShapes($shapes);
+        });
+
+        $('#stop').on('click', function(event) {
+          let $shapes = $('#canvas div');
+          event.preventDefault();
+          $shapes.stop(true);
+        });
+
+      })
+    </script>
+  </body>
+</html>

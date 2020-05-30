@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Practice Template</title>
+    <style media="screen">
+
+    </style>
+  </head>
+  <body>
+    <form id="form">
+      <p><label>Title: <input type="text" name="title"></label></p>
+      <p><label>Author: <input type="text" name="author"></label></p>
+      <p><button type="submit">Submit</button></p>
+    </form>
+  </body>
+
+  <script type="text/javascript">
+    let form = document.getElementById('form');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      let keysAndValues = [];
+
+      for(let i = 0; i < form.elements.length; i += 1) {
+        let element = form.elements[i],
+            key,
+            value;
+
+        if (element.type !== 'submit') {
+          key = encodeURIComponent(element.name);
+          value = encodeURIComponent(element.value);
+          keysAndValues.push(key + '=' + value);
+        }
+      };
+
+      let data = keysAndValues.join('&');
+
+      let request = new XMLHttpRequest();
+      request.open('POST', 'https://ls-230-book-catalog.herokuapp.com/books');
+      request.setRequestHeader('Content-type', 'application/x-form-urlencoded');
+
+      request.addEventListener('load', function() {
+        if (request.status === 201) {
+          console.log('This book was added to the catalog: ' + request.responseText);
+        }
+      });
+    })
+  </script>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>Fluid Layout Gallery</title>
+    <meta charset="UTF-8" />
+    <script src="jQuery_3_4_1.js"></script>
+    <link rel="stylesheet" href="gallery.css" />
+  </head>
+  <body>
+    <main>
+      <h1>My Photo Gallery</h1>
+      <figure class="active">
+        <img src="http://placehold.it/1200x900" alt="" />
+        <figcaption>Photo 1</figcaption>
+      </figure>
+      <figure>
+        <img src="http://placehold.it/1200x900/008000" alt="" title="Photo 2" />
+        <figcaption>Photo 2</figcaption>
+      </figure>
+      <figure>
+        <img src="http://placehold.it/1200x900/000000" alt="" title="Photo 3" />
+        <figcaption>Photo 3</figcaption>
+      </figure>
+      <figure>
+        <img src="http://placehold.it/1200x900/FFFFFF" alt="" title="Photo 4" />
+        <figcaption>Photo 4</figcaption>
+      </figure>
+      <ul>
+        <li><img src="http://placehold.it/1200x900" alt="" title="Photo 1" /></li>
+        <li><img src="http://placehold.it/1200x900/008000" alt="" title="Photo 2" /></li>
+        <li><img src="http://placehold.it/1200x900/000000" alt="" title="Photo 3" /></li>
+        <li><img src="http://placehold.it/1200x900/FFFFFF" alt="" title="Photo 4" /></li>
+      </ul>
+    </main>
+
+    <script type="text/javascript">
+      $(function() {
+
+        $('li').on('click', function() {
+          let index = $(this).index();
+          $(this).css('border-color', 'blue')
+
+          $('.active').fadeOut(300);
+          $('figure').eq(index).delay(300).fadeIn(300).addClass('active');
+        })
+
+      })
+    </script>
+  </body>
+</html>

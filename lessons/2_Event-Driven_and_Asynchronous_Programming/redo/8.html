@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <style media="screen">
+      div {
+        border: solid 2px blue;
+        background: lightblue;
+        padding: 2em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer"> listener #1
+      <div class="inner"> listener #2
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript">
+    function turnRed(event) {
+      event.stopPropagation();
+      event.currentTarget.style.background = 'red';
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelector('.outer').addEventListener('click',  turnRed, true);
+      document.querySelector('.inner').addEventListener('click',  turnRed);
+    }); 
+  </script>
+</html>

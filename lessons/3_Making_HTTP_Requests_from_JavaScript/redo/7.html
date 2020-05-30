@@ -1,0 +1,43 @@
+<!-- POST /books HTTP/1.1
+Host: https://ls-230-book-catalog.herokuapp.com
+Content-Type: application/json
+Accept: */*
+
+"{"title":"Eloquent JavaScript","author":"Marijn Haverbeke"}" -->
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Practice Template</title>
+    <style media="screen">
+
+    </style>
+  </head>
+  <body>
+
+  </body>
+
+  <script type="text/javascript">
+    let creationURL = 'https://ls-230-web-store-demo.herokuapp.com/v1/products',
+        data = {
+          name: 'A new product',
+          sku: '668890',
+          price: 599,
+        },
+        jsonData = JSON.stringify(data);
+
+    let request = new XMLHttpRequest();
+    request.open('POST', creationURL);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.setRequestHeader('Authorization', 'token AUTH_TOKEN');
+
+    request.addEventListener('load', function() {
+      console.log(request.response);
+    })
+
+
+    request.send(jsonData);
+
+  </script>
+</html>

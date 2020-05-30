@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="jQuery_3_4_1.js"></script>
+
+    <title></title>
+  </head>
+  <body>
+    <ul id="bottle">
+      <li id="link_1"><a href="#">I am link 1.</a></li>
+      <li id="link_2"><a href="#">I am link 2.</a></li>
+      <li id="link_3"><a href="#">I am link 3.</a></li>
+      <li id="link_4"><a href="#">I am link 4.</a></li>
+    </ul>
+
+    <script type="text/javascript">
+      var callback = function(e) {
+        event.preventDefault();
+        console.log(this.textContent);
+      };
+
+      $('#link_1').on('click.blue.yellow', callback);
+      $('#link_2').on('click.red.yellow', callback);
+      $('#link_3').on('click.red.blue', callback);
+      $('#link_4').on('click.yellow.black', callback);
+    </script>
+  </body>
+</html>

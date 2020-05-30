@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>jQuery Practice Template</title>
+    <script src="jQuery_3_4_1.js">
+
+    </script>
+    <style media="screen">
+
+    </style>
+  </head>
+  <body>
+    <ul id="navigation">
+      <li>
+        <a href="#">Categories</a>
+        <ul>
+          <li><a id="html" href="#">HTML</a></li>
+          <li><a id="css" href="#">CSS</a></li>
+          <li><a id="javascript" href="#">Javascript</a></li>
+        </ul>
+      </li>
+    </ul>
+  </body>
+
+  <script type="text/javascript">
+    let $li = $("#css").closest('li');
+  </script>
+</html>
