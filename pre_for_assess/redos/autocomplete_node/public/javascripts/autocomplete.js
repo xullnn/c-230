@@ -9,6 +9,10 @@ function throttler(callback, thresholdTime, contextObj) {
   })
 }
 
+// every time we actually send a XHR, we set id to null
+// every time if id is null, we set a new timeout
+// the way to add an addtional operation to a function is to wrap the callback and the new operation in to a function expression
+
 
 let Autocomplete = {
   wrapInput: function() { // the input element that we'll build the autocomplete functionality around
