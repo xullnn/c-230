@@ -45,7 +45,7 @@
     xhr.setRequestHeader('Content-type', 'application/json');
 
     xhr.addEventListener('load', function(e) {
-      let responseJSON = e.response;
+      let responseJSON = xhr.response;
       console.log(responseJSON.title);
       console.log(responseJSON.completed);
     })
