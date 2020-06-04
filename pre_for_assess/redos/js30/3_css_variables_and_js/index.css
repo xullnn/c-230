@@ -1,0 +1,48 @@
+/*
+      misc styles, nothing to do with CSS variables
+    */
+
+body {
+  text-align: center;
+  background: #193549;
+  color: white;
+  font-family: "helvetica neue", sans-serif;
+  font-weight: 100;
+  font-size: 50px;
+}
+
+.controls {
+  margin-bottom: 50px;
+}
+
+input {
+  width: 100px;
+}
+
+/* Declaring Variable */
+element {
+  --main-bg-color: brown;
+  font-size: inherit;
+}
+
+/* Using the variable */
+element {
+  background-color: var(--main-bg-color);
+}
+
+/* Declaring Variable  ':root' means the root element such as the html element */ 
+:root {
+  --base: yellow;
+  --spacing: 5px;
+  --blur: 0px;
+}
+
+img {
+  padding: var(--spacing);
+  background: var(--base);
+  filter: blur(var(--blur));
+}
+
+.h1 {
+  color: var(--base);
+}
