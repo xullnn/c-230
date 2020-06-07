@@ -35,7 +35,6 @@ function scrub(e) {
   video.currentTime = scrubTime;
 };
 
-
 document.addEventListener('DOMContentLoaded', function() {
   player = document.querySelector('.player'),
   video = player.querySelector('.viewer'),
