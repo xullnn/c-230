@@ -27,7 +27,6 @@
     - handle possible errors
     - update the page with new data shown
 
-
 Notes:
 
 - overuse of jQuery's `html()` method will lose the bindings of events
@@ -78,15 +77,3 @@ Thoughts After first version:
     - available tags
   - at create form page
     - available tags
-
-(App)Object creation pattern:
-
-Pseudo classic:
-
-function App() { // constructor
-
-  this.$obj.on('type', )
-
-}  
-
-App.prototype.method1 = function() {};
