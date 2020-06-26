@@ -6,10 +6,10 @@
 
 // refactor:
 
-1. differentiate fixed elements and dynamic elements from page
-  - fixed elements can be cached when app is initialized
-  - dynamic elements are the ones that are inserted or removed from the dom when data being updated
-    - dynamic elements may lose events bindings during manipulation, so events should be delegated to their parent containers
+// 1. differentiate fixed elements and dynamic elements from page
+//   - fixed elements can be cached when app is initialized
+//   - dynamic elements are the ones that are inserted or removed from the dom when data being updated
+//     - dynamic elements may lose events bindings during manipulation, so events should be delegated to their parent containers
 
 function ContactManager() {
     this.chosenTags = [];

@@ -60,3 +60,33 @@ Also, implement a "tagging" feature, which allows you to create tags, such as "m
   - create: when creating and editing contact
     - input area or click existing tag list
   - filter: select tag(s) to filter contacts at index page
+
+---
+
+Thoughts After first version:
+
+- Data(contacts) retrieval happens when:
+  - app first initialized
+  - when contacts get created or updated
+
+- Page rendering includes:
+  - at index
+    - contacts
+    - tags(all and chosen ones)
+  - at edit form page
+    - existing contact data rendering
+    - available tags
+  - at create form page
+    - available tags
+
+(App)Object creation pattern:
+
+Pseudo classic:
+
+function App() { // constructor
+
+  this.$obj.on('type', )
+
+}  
+
+App.prototype.method1 = function() {};
