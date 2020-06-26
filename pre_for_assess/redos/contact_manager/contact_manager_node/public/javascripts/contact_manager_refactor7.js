@@ -329,7 +329,7 @@ ContactManager.prototype.bindEvents = function() {
   });
 
   $('.main').on('click', '[name=cancel]', e => {
-    this.renderIndex()
+    this.renderIndex();
   });
 
   this.$formsContainer.on('click', '[name=submitEdit]', e => {
@@ -337,19 +337,19 @@ ContactManager.prototype.bindEvents = function() {
   });
 
   this.$contactsContainer.on('click', '.edit_contact', e => {
-    this.handleClickOnEdit(e)
+    this.handleClickOnEdit(e);
   });
 
   this.$contactsContainer.on('click', '.delete_contact', e => {
-    this.deleteContact(e)
+    this.deleteContact(e);
   });
 
   this.$contactsContainer.on('click', '.tag', e => {
-    this.handleClickOnTag(e)
+    this.handleClickOnTag(e);
   });
 
   this.$allTagsUl.on('click', '.tag', e => {
-    this.handleClickOnTag(e)
+    this.handleClickOnTag(e);
   });
 
   $('.main').on('click', e => {
@@ -360,13 +360,11 @@ ContactManager.prototype.bindEvents = function() {
   })
 
   this.$searchContactDiv.on('input', e => {
-    this.debouncedSearchContact(e)
+    this.debouncedSearchContact(e);
   });
 
 } // bind event end
 
-let app;
-
 document.addEventListener('DOMContentLoaded', function() {
-  app = new ContactManager();
+  new ContactManager();
 })
