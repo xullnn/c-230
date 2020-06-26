@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="/javascripts/jquery.js"></script>
+  <script src="/javascripts/handlebars.js"></script>
+  <script src="/javascripts/contact_manager_refactor6.js"></script>
+  <!-- <script src="/javascripts/contact_manager.js"></script> -->
+
+  <link rel="stylesheet" href="/stylesheets/contact.css">
+</head>
+<body>
+  <div class="title">
+    <h1>Contact Manager</h1>
+  </div>
+  <div class="search_contact">
+    <button id="add_contact">Add Contact</button>
+    <input type="text" name="contact_name" placeholder="Search">
+  </div>
+
+  <div class="tags_container">
+    <p><strong>All Tags: </strong></p>
+    <small><p>  (click to filter contacts or cancel filtering.)</p></small>
+    <ul id="all_tag_list">
+
+    </ul>
+  </div>
+
+  <div class="main">
+    <div class="contacts">
+
+    </div>
+
+    <div class="forms">
+
+    </div>
+
+  </div>
+
+  <script type="handlebars" id="contact_template">
+    <div class="contact">
+      <p class="full_name"></p>
+      <p><strong>Phone Number:</strong></p>
+      <p class="phone_number"></p>
+      <p><strong>Email:</strong></p>
+      <p class="email"></p>
+
+      <p><strong>tags:</strong></p>
+      <ul class="tags"></ul>
+      <div class="edit_and_delete">
+        <button class="edit_contact">Edit</button>
+        <button class="delete_contact">Delete</button>
+      </div>
+      <span class="id" data-id="id"></span>
+    </div>
+  </script>
+
+  <script type="handlebars" id="editing_form">
+    <form class="edit_contact" action="/" method="post">
+      <h3 class="form_title">Edit Contact</h3>
+      <div class="full_name">
+        <label for="full_name">Full Name:</label>
+        <input type="text" name="full_name" value="full_name">
+      </div>
+
+      <div class="email">
+        <label for="email">Email Address:</label>
+        <input type="text" name="email" value="email">
+      </div>
+
+      <div class="phone">
+        <label for="phone">Phone Number:</label>
+        <input type="text" name="phone_number" value="phone_number">
+      </div>
+
+      <div class="tags">
+        <label for="tags">tags:</label>
+        <input type="text" name="tags" value="">
+      </div>
+
+      <div class="buttons">
+        <button type="submit" name="submitEdit">Submit</button>
+        <button type="button" name="cancel">Cancel</button>
+      </div>
+    </form>
+
+    <div class="add_tags tags_container">
+      <span><i>Click to attach new tag to contact: </i></span>
+      <ul id="available_tags">
+
+      </ul>
+    </div>
+  </script>
+
+  <script type="handlebars" id="creating_form">
+    <form class="create_contact" action="/" method="post">
+      <h3 class="form_title">Create Contact</h3>
+      <div class="full_name">
+        <label for="full_name">Full Name:</label>
+        <input type="text" name="full_name" value="">
+      </div>
+
+      <div class="email">
+        <label for="email">Email Address:</label>
+        <input type="text" name="email" value="">
+      </div>
+
+      <div class="phone">
+        <label for="phone">Phone Number:</label>
+        <input type="text" name="phone_number" value="">
+      </div>
+
+      <div class="tags">
+        <label for="tags">tags:</label>
+        <input type="text" name="tags" value="">
+      </div>
+
+      <div class="buttons">
+        <button type="submit" name="submitCreate">Submit</button>
+        <button type="button" name="cancel">Cancel</button>
+      </div>
+
+      <div class="add_tags tags_container">
+        <span><i>Click to attach new tag to contact: </i></span>
+        <ul id="available_tags">
+
+        </ul>
+      </div>
+    </form>
+  </script>
+
+  <script type="handlebars" id="addAndSearchContact">
+    <div class="create_contact search_contact">
+      <button id="add_contact">Add Contact</button>
+      <input type="text" name="contact_name" placeholder="Search">
+    </div>
+  </script>
+
+</body>
+</html>
