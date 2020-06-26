@@ -173,6 +173,7 @@ ContactManager.prototype.renderIndex = function() {
   this.$contactsContainer.css('display', 'flex') // show contacts container
   this.$allTagsContainer.show(); // show all tags
   this.chosenTags = [];
+  this.contactState = 'default';
   this.renderTags('', this.$chosenTagUl);
   this.renderAllTags();
   this.renderContacts();
