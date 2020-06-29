@@ -77,3 +77,60 @@ Thoughts After first version:
     - available tags
   - at create form page
     - available tags
+
+---
+
+Feedback from Victor: )
+
+> If ever, one thing you may consider is to break down the ContactManager into multiple objects with more focused responsibilities. You could probably have one that is responsible for the collection of contacts, one for collection of tags, and maybe one that is responsible for interacting with the server.
+
+My understanding:
+
+Instead of letting all `contact` data (along with `tag`s data) flow within the whole program, different object types can be made based on the main feature of the app, such as `tag`, `contact`
+
+Also responsibilities should be split into different parties, such as data related, presentation related, web API related.
+
+So the idea is to make the program into a communication among different objects(components), responsibility of each component should be clear and simple.
+
+---
+
+ContactsManager
+  - API
+    - making ajax requests
+  - Contact
+    - holding contacts data
+      - rendering logic
+  - Tag
+    - holding tags data
+    - rendering logic
+
+We don't need any api exposure to code level, all interactions are in the page.
+
+```js
+function ContactManager() {
+  // private functions / data(in the form of declared variables)
+    API: {
+      // reference outer object?
+
+    },
+
+    Contact: {},
+
+    Tag: {},
+
+    UI: {
+      // presentation tasks
+    }
+
+
+    a function to wrap all operations need to be performed such as retrieving data, binding events
+}
+
+```
+
+I want an object
+in that object
+I can:
+  reference UI, API, Tag, Contact
+
+It does not need to return any object. All operations can be wrapped and executed inside function.
