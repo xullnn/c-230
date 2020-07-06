@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tests</title>
+    <meta charset="utf-8">
+    <style>
+     #red, #blue, #green, #orange {
+         cursor: pointer;
+         color: white;
+         padding: 10px;
+         margin: 10px;
+     }
+     #red {
+         width: 400px;
+         height: 400px;
+         background: red;
+     }
+
+     #blue {
+         width: 200px;
+         height: 200px;
+         background: blue;
+     }
+
+     #orange {
+         width: 100px;
+         height: 100px;
+         background: orange;
+     }
+
+     #green {
+         width: 50px;
+         height: 50px;
+         background: green;
+     }
+    </style>
+  </head>
+  <body>
+    <div id="red">Red
+      <div id="blue">Blue</div>
+
+      <div id="orange">Orange
+        <div id="green">Green</div>
+      </div>
+
+    </div>
+    <script>
+var tracker = function() {
+  var events = [];
+
+  return {
+    list: function() {
+      return events.slice(0);
+    },
+
+    elements: function() {
+      return events.slice(0).map(event => event.target);
+    },
+
+    addToList: function(item) {
+      if (!events.includes(event)) {
+        events.push(event);
+      }
+    },
+
+    clear: function() {
+      events = [];
+      return events.length;
+    },
+  }
+}();
+
+function track(callback) {
+  return function(event) {
+    tracker.addToList(event);
+    callback(event);
+  }
+};
+
+// test preparation
+
+var divRed = document.querySelector('#red');
+var divBlue = document.querySelector('#blue');
+var divOrange = document.querySelector('#orange');
+var divGreen = document.querySelector('#green');
+
+divRed.addEventListener('click', track(function(event) {
+  document.body.style.background = 'red';
+}));
+
+divBlue.addEventListener('click', track(function(event) {
+  event.stopPropagation();
+  document.body.style.background = 'blue';
+}));
+
+divOrange.addEventListener('click', track(function(event) {
+  event.stopPropagation();
+  document.body.style.background = 'orange';
+}));
+
+divGreen.addEventListener('click', track(function(event) {
+  event.stopPropagation();
+  document.body.style.background = 'green';
+}));
+    </script>
+  </body>
+</html>

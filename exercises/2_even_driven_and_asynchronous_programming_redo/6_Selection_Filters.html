@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <form id="selection-filters" method="post" action="#">
+      <select id="animal-classifications">
+        <option value="Classifications" selected>Classifications</option>
+        <option value="Vertebrate">Vertebrate</option>
+        <option value="Warm-blooded">Warm-blooded</option>
+        <option value="Cold-blooded">Cold-blooded</option>
+        <option value="Mammal">Mammal</option>
+        <option value="Bird">Bird</option>
+      </select>
+      <select id="animals">
+        <option value="Animals" selected>Animals</option>
+        <option value="Bear">Bear</option>
+        <option value="Turtle">Turtle</option>
+        <option value="Whale">Whale</option>
+        <option value="Salmon">Salmon</option>
+        <option value="Ostrich">Ostrich</option>
+      </select>
+      <button id="clear">Clear</button>
+    </form>
+    <script type="text/javascript">
+var cToA = {
+  'Vertebrate': ['Bear', 'Turtle', 'Whale', 'Salmon', 'Ostrich'],
+  'Warm-blooded': ['Bear', 'Whale', 'Ostrich'],
+  'Cold-blooded': ['Salmon', 'Turtle'],
+  'Mammal': ['Bear', 'Whale'],
+  'Bird': ['Ostrich'],
+};
+
+var aToC = {
+  'Bear': ['Vertebrate', 'Warm-blooded', 'Mammal'],
+  'Turtle': ['Vertebrate', 'Cold-blooded'],
+  'Whale': ['Vertebrate', 'Warm-blooded', 'Mammal'],
+  'Salmon': ['Vertebrate', 'Cold-blooded'],
+  'Ostrich': ['Vertebrate', 'Warm-blooded', 'Bird'],
+};
+
+var classifications = document.querySelector('#animal-classifications');
+var classArr = Array.from(classifications);
+var animals = document.querySelector('#animals');
+var animalArr = Array.from(animals);
+
+document.querySelector('form').addEventListener('change', function(event) {
+  var collection;
+  if (classifications.contains(event.target)) {
+    collection = animalArr.filter(option => cToA[event.target.value].includes(option.value));
+    animals.innerHTML = '';
+    collection.forEach(option => animals.appendChild(option));
+  } else if (animals.contains(event.target)) {
+    collection = classArr.filter(option => aToC[event.target.value].includes(option.value));
+    classifications.innerHTML = '';
+    collection.forEach(option => classifications.appendChild(option));
+  }
+});
+
+document.querySelector('#clear').addEventListener('click', function(event) {
+  classifications.innerHTML = '';
+  classArr.forEach(option => classifications.appendChild(option));
+  animals.innerHTML = '';
+  animalArr.forEach(option => animals.appendChild(option));
+});
+
+    </script>
+  </body>
+</html>

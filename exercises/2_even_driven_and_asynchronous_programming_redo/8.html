@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <title>Event Delegation Function</title>
+  </head>
+  <body>
+    <main>
+      <section>
+        <h1>Header</h1>
+        <p>Content</p>
+      </section>
+      <aside>
+        <h2>Sub Side Notes</h2>
+        <p>Note 1</p>
+        <p>Note 2</p>
+      </aside>
+    </main>
+    <nav>
+      <p>Side Note</p>
+    </nav>
+    <script type="text/javascript">
+      // Possible elements for use with the scenarios
+      var element1 = document.querySelector('table');
+      var element2 = document.querySelector('main h1');
+      var element3 = document.querySelector('main');
+
+      var callback = function(event) {
+        alert('Target: ' + event.target.tagName + '\nCurrent Target: ' + event.currentTarget.tagName);
+      };
+
+      function delegateEvent(parent, selector, eventType, callback) {
+        if (!parent) return undefined;
+        var child = parent.querySelector(selector);
+        console.log(child)
+
+        parent.addEventListener(eventType, function(event) {
+          if (child && event.target === child) {
+            callback(event)
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
