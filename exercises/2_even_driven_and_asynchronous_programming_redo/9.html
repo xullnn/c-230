@@ -45,63 +45,85 @@
 
     </div>
     <script>
-var tracker = function() {
-  var events = [];
 
-  return {
-    list: function() {
-      return events.slice(0);
-    },
+    // traker is an object only has reading access to private elments and events data
+    //   - trackers function properties has access
+    //     - use `slice()` to hide
+    //
+    // track is a function returns a function that has access to private data and invoke the callback
 
-    elements: function() {
-      return events.slice(0).map(event => event.target);
-    },
+let tracker;
 
-    addToList: function(item) {
-      if (!events.includes(event)) {
-        events.push(event);
+let track = (function() {
+  let events = [];
+
+  return function(callback) {  // track
+    if (!tracker) {
+      tracker = {
+         elements: function() {
+          return events.map(event => event.target);
+        },
+
+        list: function() {
+          return events.slice();
+        },
+
+        clear: function() {
+          events = [];
+        },
       }
-    },
+    };
 
-    clear: function() {
-      events = [];
-      return events.length;
-    },
+    return function(event) {
+      if (!events.includes(event)) events.push(event);
+      callback(event);
+    };
+
   }
-}();
+})() //
 
-function track(callback) {
-  return function(event) {
-    tracker.addToList(event);
-    callback(event);
-  }
-};
 
-// test preparation
+    // test preparation
 
-var divRed = document.querySelector('#red');
-var divBlue = document.querySelector('#blue');
-var divOrange = document.querySelector('#orange');
-var divGreen = document.querySelector('#green');
+    var divRed = document.querySelector('#red');
+    var divBlue = document.querySelector('#blue');
+    var divOrange = document.querySelector('#orange');
+    var divGreen = document.querySelector('#green');
 
-divRed.addEventListener('click', track(function(event) {
-  document.body.style.background = 'red';
-}));
+    divRed.addEventListener('click', track(function(event) {
+      document.body.style.background = 'red';
+    }));
 
-divBlue.addEventListener('click', track(function(event) {
-  event.stopPropagation();
-  document.body.style.background = 'blue';
-}));
+    divBlue.addEventListener('click', track(function(event) {
+      event.stopPropagation();
+      document.body.style.background = 'blue';
+    }));
 
-divOrange.addEventListener('click', track(function(event) {
-  event.stopPropagation();
-  document.body.style.background = 'orange';
-}));
+    divOrange.addEventListener('click', track(function(event) {
+      event.stopPropagation();
+      document.body.style.background = 'orange';
+    }));
 
-divGreen.addEventListener('click', track(function(event) {
-  event.stopPropagation();
-  document.body.style.background = 'green';
-}));
+    divGreen.addEventListener('click', track(function(event) {
+      event.stopPropagation();
+      document.body.style.background = 'green';
+    }));
+
+
+    tracker.list().length;
+    tracker.elements()
+    // [div#blue, div#red, div#orange, div#green]
+    tracker.elements()[0] === document.querySelector('#blue');
+    // true
+    tracker.elements()[3] === document.querySelector('#green');
+    // true
+    tracker.clear();
+    // 0
+    tracker.list();
+    // []
+    tracker.list()[0] = 'abc';
+    tracker.list().length;
+    // 0
     </script>
   </body>
 </html>

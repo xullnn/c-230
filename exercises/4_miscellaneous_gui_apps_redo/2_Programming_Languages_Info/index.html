@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Languages</title>
+    <script type="text/javascript" src="handlebars.min-v4.5.3.js"></script>
+
+    <link rel="stylesheet" href="language.css">
+  </head>
+  <body>
+    <main>
+    </main>
+
+  <script type="text/x-handlebar" id="section">
+    <div class="container">
+      <h3>{{name}}</h3>
+      <p><span class="excerpt">{{excerpt}}</span><span class="trimmed" style="display: none">{{trimmed}}</span></p>
+      <button type="button" name="button" class="show_more"><a href="#">show more</a></button>
+      <button type="button" name="button" class="show_less"><a href="#">show less</a></button>
+    </div>
+  </script>
+  <!-- <script type="text/javascript" src="languages.js"></script> -->
+  <script type="text/javascript" src="languages.js"></script>
+  </body>
+</html>

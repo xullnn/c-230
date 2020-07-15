@@ -1,62 +1,41 @@
-// randomly invoke n functions withion 2 * n seconds
-  // while logging out every elapsed second
+function Clock() {
+  this.id = null;
+}
 
-// use arguments object to track all callbacks
-// need a way to pre-allocate time interval for every function execution
-  // the first interval appears before the first callback execution
-  // the last interval appears before the execution of the last callback
-  // so the number of intervals is equal to the number of callbacks
-
-// if we have 5 callbacks
-  // setTimeout
-    // 1st callback
-  // setTimeout
-    // 2nd callback
-  // ...
-    // 5th callback
-
-// how to generate intervals for a given n(the number of callbacks)
-
-function generateIntervals(n) { // return intervals as miliseconds
-  let intervals = [];
-  let totalDuration = 2 * n * 1000;
-
-  if (n === 1) return [totalDuration];
-
-  for(let t = 1; t < n; t += 1) {
-    intervals.push(Math.floor(Math.random() * (n + 1)) * 1000);
-  };
-
-  let lastInterval = totalDuration - intervals.reduce((a, b) => a + b);
-
-  if (lastInterval >= 0) {
-    intervals.push(lastInterval);
-    intervals = intervals.map((_, i) => intervals.slice(0, i + 1).reduce((a, b) => a + b));
-    return intervals;
-  } else {
-    return generateIntervals(n);
-  }
+Clock.prototype.run = function() {
+  let seconds = 0;
+  this.id = setInterval(() => {
+    seconds += 1;
+    console.log(seconds)
+  }, 1000)
 };
 
-function timer(n) {
-  var second = 0;
-  var id = setInterval(function() {
-    second += 1;
-    console.log(second);
-    if (second === n) clearInterval(id);
-  }, 1000);
+Clock.prototype.stop = function() {
+  clearInterval(this.id)
 };
 
+function randomInTwoSeconds() {
+  return Math.floor(2000 * Math.random());
+};
 
 function randomizer() {
-  let callbacks = Array.from(arguments);
-  let intervals = generateIntervals(callbacks.length);
-  timer(callbacks.length * 2);
+  let callbacks = [...arguments],
+      totalDuration = 2000 * callbacks.length,
+      clock = (new Clock());
+  
+  if (callbacks.length === 0) {
+    console.log('No Callback provided!')
+  } else {
+    let delay = 0;
+    clock.run();
+    callbacks.forEach(callback => {
+      delay += randomInTwoSeconds();
+      setTimeout(callback, delay);
+    })
+  }
 
-  for(let i = 0; i < callbacks.length; i += 1) {
-    setTimeout(callbacks[i], intervals[i])
-  };
-};
+  setTimeout(() => { clock.stop()}, totalDuration )
+}
 
 function callback1() {
   console.log('callback1');

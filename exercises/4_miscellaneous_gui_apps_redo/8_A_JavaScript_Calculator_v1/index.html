@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="handlebars.min-v4.5.3.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous">
+    </script>
+  </head>
+  <body>
+    <main>
+      <div class="frame">
+        <div id="screen">
+          <p id="expression"></p>
+          <p id="result"></p>
+        </div>
+
+        <div id="panel">
+          <div id="numbers">
+          </div>
+
+          <div id="operations">
+            <div class="operators">
+              <p id="+">+</p>
+            </div>
+            <div class="operators">
+              <p id="-">-</p>
+            </div>
+            <div class="operators">
+              <p id="/">/</p>
+            </div>
+            <div class="operators">
+              <p id="*">*</p>
+            </div>
+            <div class="operators">
+              <p id="%">%</p>
+            </div>
+            <div class="equal_sign">
+              <p id="=">=</p>
+            </div>
+            <div class="neg_sign">
+              <p id="NEG">NEG</p>
+            </div>
+            <div class="clear_all">
+              <p id="C">C</p>
+            </div>
+            <div class="clear_entry">
+              <p id="CE">CE</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  <script type="text/x-handlebars" id="number_template">
+    {{#each numbers}}
+      <div class="numbers">
+        <p id="{{value}}">{{value}}</p>
+      </div>
+    {{/each}}
+  </script>
+  <script type="text/javascript" src="app.js"></script>
+  </body>
+</html>

@@ -25,46 +25,61 @@
       <button id="clear">Clear</button>
     </form>
     <script type="text/javascript">
-var cToA = {
-  'Vertebrate': ['Bear', 'Turtle', 'Whale', 'Salmon', 'Ostrich'],
-  'Warm-blooded': ['Bear', 'Whale', 'Ostrich'],
-  'Cold-blooded': ['Salmon', 'Turtle'],
-  'Mammal': ['Bear', 'Whale'],
-  'Bird': ['Ostrich'],
-};
+      var cToA = {
+        'Classifications': ['Animals', 'Bear', 'Turtle', 'Whale', 'Salmon', 'Ostrich'],
+        'Vertebrate': ['Bear', 'Turtle', 'Whale', 'Salmon', 'Ostrich'],
+        'Warm-blooded': ['Bear', 'Whale', 'Ostrich'],
+        'Cold-blooded': ['Salmon', 'Turtle'],
+        'Mammal': ['Bear', 'Whale'],
+        'Bird': ['Ostrich'],
+      };
 
-var aToC = {
-  'Bear': ['Vertebrate', 'Warm-blooded', 'Mammal'],
-  'Turtle': ['Vertebrate', 'Cold-blooded'],
-  'Whale': ['Vertebrate', 'Warm-blooded', 'Mammal'],
-  'Salmon': ['Vertebrate', 'Cold-blooded'],
-  'Ostrich': ['Vertebrate', 'Warm-blooded', 'Bird'],
-};
+      var aToC = {
+        'Animals': ['Classifications', 'Vertebrate', 'Warm-blooded', 'Mammal', 'Bird'],
+        'Bear': ['Vertebrate', 'Warm-blooded', 'Mammal'],
+        'Turtle': ['Vertebrate', 'Cold-blooded'],
+        'Whale': ['Vertebrate', 'Warm-blooded', 'Mammal'],
+        'Salmon': ['Vertebrate', 'Cold-blooded'],
+        'Ostrich': ['Vertebrate', 'Warm-blooded', 'Bird'],
+      };
 
-var classifications = document.querySelector('#animal-classifications');
-var classArr = Array.from(classifications);
-var animals = document.querySelector('#animals');
-var animalArr = Array.from(animals);
+      function createOptionNodes(values) {
+        return values.map(value => {
+          let o = document.createElement('option');
+          o.value = value;
+          o.textContent = value;
+          return o;
+        });
+      };
 
-document.querySelector('form').addEventListener('change', function(event) {
-  var collection;
-  if (classifications.contains(event.target)) {
-    collection = animalArr.filter(option => cToA[event.target.value].includes(option.value));
-    animals.innerHTML = '';
-    collection.forEach(option => animals.appendChild(option));
-  } else if (animals.contains(event.target)) {
-    collection = classArr.filter(option => aToC[event.target.value].includes(option.value));
-    classifications.innerHTML = '';
-    collection.forEach(option => classifications.appendChild(option));
-  }
-});
+      let form = document.querySelector('form'),
+          formDefaultHtml = form.innerHTML;
 
-document.querySelector('#clear').addEventListener('click', function(event) {
-  classifications.innerHTML = '';
-  classArr.forEach(option => classifications.appendChild(option));
-  animals.innerHTML = '';
-  animalArr.forEach(option => animals.appendChild(option));
-});
+      form.addEventListener('input', (e) => {
+        e.preventDefault();
+        let clicked = e.target,
+            chosen = e.target.value,
+            parent = clicked.closest('select');
+
+        if (parent.id == 'animal-classifications') {
+          let animals = document.querySelector("#animals");
+          animals.innerHTML = '';
+          createOptionNodes(cToA[chosen]).forEach(option => animals.appendChild(option))
+        } else if (parent.id == 'animals') {
+          let classifications = document.querySelector("#animal-classifications");
+          classifications.innerHTML = '';
+          createOptionNodes(aToC[chosen]).forEach(option => classifications.appendChild(option))
+        }
+      });
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+      })
+
+      form.addEventListener('click', (e) => {
+        if (e.target.id === 'clear') form.innerHTML = formDefaultHtml;
+      })
+
 
     </script>
   </body>

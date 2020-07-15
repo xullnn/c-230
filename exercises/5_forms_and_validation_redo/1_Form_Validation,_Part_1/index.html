@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Fields Validation</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="handlebars.min-v4.5.3.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous">
+    </script>
+  </head>
+  <body>
+    <main>
+      <h3>Form With Validation</h3>
+      <form novalidate id="fields" action="index.html" method="post">
+        <div class="input_field">
+          <label for="first_name">First Name: </label>
+          <input type="text" name="first_name" placeholder="First Name" required pattern="[a-zA-Z]{2,20}">
+          <p class="rule_explanations"></p>
+        </div>
+
+        <div class="input_field">
+          <label for="last_name">Last Name: </label>
+          <input type="text" name="last_name" placeholder="Last Name" required pattern="^[a-zA-Z]{2,20}$">
+          <p class="rule_explanations"></p>
+        </div>
+
+        <div class="input_field">
+          <label for="email">Email: </label>
+          <input type="text" name="email" placeholder="Email" required pattern='^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'>
+          <p class="rule_explanations"></p>
+        </div>
+
+        <div class="input_field">
+          <label for="password">Password: </label>
+          <input type="password" name="password" placeholder="Password" required pattern="^(?=.{6,})(?=.*[a-z])(?=.*[A-Z]).*$">
+          <p class="rule_explanations"></p>
+        </div>
+
+        <div class="input_field">
+          <label for="phone">Phone: </label>
+          <input type="text" name="phone" placeholder="Phone" pattern="^(\d{6,20}|.{0})$">
+          <p class="rule_explanations"></p>
+        </div>
+
+        <div class="input_field">
+          <label for="credit_card">Credit Card: </label>
+          <input type="text" name="credit_card" placeholder="0000" pattern="^(\d{4})$">
+          <input type="text" name="credit_card" placeholder="0000" pattern="^\d{4}$">
+          <input type="text" name="credit_card" placeholder="0000" pattern="^\d{4}$">
+          <input id="final_section" type="text" name="credit_card" placeholder="0000" pattern="^\d{4}$">
+          <p class="rule_explanations"></p>
+        </div>
+
+        <button type="submit" id="submit">Submit</button>
+      </form>
+
+      <h3 id="Serialized_Data"></h3>
+    </main>
+  <script type="text/javascript" src="app.js"></script>
+  </body>
+</html>

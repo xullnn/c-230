@@ -6,6 +6,7 @@
     <style media="screen">
       .highlight {
         border: 1px dotted black;
+        background-color: yellow;
       }
 
       header li {
@@ -67,36 +68,37 @@
   </main>
 
   <script type="text/javascript">
-    function clearHighlight() {
-      var highlighted = document.getElementsByClassName('highlight');
-      Array.from(highlighted).forEach(e => e.classList.remove('highlight'));
+    function addHighlightTo(element) {
+      let highlighted = document.querySelector('.highlight');
+      if (highlighted) highlighted.classList.remove('highlight');
+      element.classList.add('highlight');
     };
 
-    var main = document.querySelector('main');
+    document.body.querySelector('ul').addEventListener('click', function(e) {
+      let target = e.target,
+          articleId;
 
-    document.body.addEventListener('click', function(event) {
-      if (!main.contains(event.target) && event.target.tagName !== 'A') {
-        clearHighlight();
-        document.querySelector('main').classList.add('highlight')
+      if (target.tagName === 'A') {
+        articleId = target.getAttribute('href').match(/\w+\-\d+/)[0];
+        addHighlightTo(document.getElementById(articleId));
       }
-    });
-
-    var links = document.querySelectorAll('a');
-    Array.from(links).forEach(link => {
-      link.addEventListener('click', function(event) {
-        event.preventDefault();
-        clearHighlight();
-        document.getElementById(link.href.match(/article-\d+$/)[0]).classList.add('highlight');
-      })
     })
 
-    Array.from(document.querySelectorAll('article')).forEach(article => {
-      article.addEventListener('click', function(event) {
-        clearHighlight();
-        event.currentTarget.classList.add('highlight')
-      })
+    document.body.querySelector('main').addEventListener('click', function(e) {
+      let target = e.target;
+      if (target.tagName = 'ARTICLE') {
+        addHighlightTo(target.closest('article'));
+      }
     })
 
+    document.addEventListener('click', function(e) {
+      let target = e.target,
+          main = document.querySelector('main'),
+          allThingsInMain = main.querySelectorAll('*');
+      if (![...allThingsInMain].includes(target)) {
+        addHighlightTo(main);
+      }
+    })
   </script>
   </body>
 </html>

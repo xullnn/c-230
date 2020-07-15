@@ -32,12 +32,11 @@
       </section>
     </main>
     <script type="text/javascript">
-      var main = document.querySelector('main');
-
-      main.addEventListener('contextmenu', function(event) {
-        event.preventDefault();
-        alert(event.target.tagName);
-      });
+      document.querySelector('main').addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        alert(e.target.tagName)
+        e.stopPropagation();
+      })
     </script>
   </body>
 </html>

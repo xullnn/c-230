@@ -1,0 +1,64 @@
+main {
+  width: 70%;
+  margin: auto;
+  border: 1px solid lightgrey;
+  padding: 20px;
+}
+
+#fields {
+  display: flex;
+  flex-direction: column;
+}
+
+div > * {
+  font-family: "Helvetica Neue", "Arial", sans-serif;
+  font-size: 1.1em;
+  width: 80%;
+  height: 40px;
+}
+
+.input_field {
+  display: flex;
+  align-items: center;
+}
+
+.input_field label {
+  max-width: 165px;
+  padding-top: 10px;
+}
+
+.input_field input {
+  flex-grow: 2;
+  padding-left: 8px;
+  border-radius: 3px;
+  border: 1px solid grey;
+}
+
+input:invalid > p {
+  color: red;
+}
+
+input:valid > p {
+  color: green;
+}
+
+p.rule_explanations {
+  font-size: 0.7em;
+  color: grey;
+  margin-left: 10px;
+}
+
+button {
+  padding: 5px;
+  font-size: 1.4em;
+  font-weight: lighter;
+  border-radius: 3px;
+  background-color: rgb(124,185,232);
+}
+
+#flash {
+  display: none;
+  color: red;
+  font-size: 1.2em;
+  font-weight: lighter;
+}

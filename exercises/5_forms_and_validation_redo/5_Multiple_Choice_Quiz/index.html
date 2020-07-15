@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Mulitple choices</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="handlebars.min-v4.5.3.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous">
+    </script>
+  </head>
+  <body>
+    <form>
+
+      <button type="submit">Submit</button>
+      <button id="reset_button">Reset</button>
+    </form>
+      <script type="handlerbar" id="question">
+        <fieldset id="{{id}}">
+          <legend>{{{description}}}</legend>
+          {{#each options}}
+            <input type="radio" name="{{../id}}" value="{{this}}">
+            <label for="{{../id}}">{{this}}</label>
+          {{/each}}
+        </fieldset>
+        <p class="message">Test message<p>
+      </script>
+      <script type="text/javascript" src="app_oop.js"></script>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Fields Validation</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="handlebars.min-v4.5.3.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous">
+    </script>
+  </head>
+  <body>
+    <main>
+      <h3>Form With Validation</h3>
+      <h4 id="flash">"Fix errors before submitting this form."</h4>
+      <form id="fields" novalidate>
+        <button type="submit" id="submit">Sign Up</button>
+      </form>
+    </main>
+
+  <script id="input_template" type="text/x-handlebar">
+    <div class="input_field">
+      <label for="{{name}}">{{label}}: </label>
+      <input type="{{type}}" name="{{name}}" placeholder="{{label}}"
+          {{#if pattern}}
+            pattern="{{pattern}}"
+          {{/if}}
+          {{#if required}}
+            required="true"
+          {{/if}}>
+      <p class="rule_explanations">{{error_message}}</p>
+    </div>
+  </script>
+  <script type="text/javascript" src="app.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Cars</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="handlebars.min-v4.5.3.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous">
+    </script>
+  </head>
+  <body>
+    <main>
+      <h2>Filter Area:</h2>
+      <form class="filter_form" action="index.html" method="post">
+        <div class="submit_button">
+          <button type="submit">Filter</button>
+        </div>
+      </form>
+    </main>
+
+    <section id="car_list">
+    </section>
+
+    <script type="text/x-handlebar" id="option_partial">
+      <div class="fields">
+        <label for="{{name}}">{{capitalize name}}:</label>
+        <select id="{{name}}" name="{{name}}">
+          <option selected>All</option>
+          {{#each values}}
+            <option value="{{this}}">{{this}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </script>
+
+    <script type="text/x-handlebar" id="car_partial">
+      <div class="cars">
+        <figure>
+          <img src="{{image}}">
+          <ul>
+            <li><strong>{{make}} {{model}}</strong></li>
+            <li>Year: {{year}}</li>
+            <li>Price: {{price}}</li>
+          </ul>
+        </figure>
+      </div>
+    </script>
+    <script type="text/javascript" src="app_v1.js"></script>
+  </body>
+</html>
