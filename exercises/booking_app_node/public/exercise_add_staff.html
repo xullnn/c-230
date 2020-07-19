@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous">
+    </script>
+
+    <style>
+      main {
+        width: 100%
+      }
+
+      form {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+    </style>
+
+    <title>Booking App</title>
+  </head>
+  <body>
+    <main>
+      <form id="create_staff" method="post" novalidate>
+        <div class="input_field">
+          <label for="name">Name: </label>
+          <input type="text" name="name" required pattern="[a-zA-Z\s]{2,20}">
+        </div>
+
+        <div class="input_field">
+          <label for="Email">Email: </label>
+          <input type="email" name="email" required pattern=".+@.+">
+        </div>
+
+        <button type="submit" name="button">Submit</button>
+      </form>
+    </main>
+
+    <script src="exercise_add_staff.js"></script>
+  </body>
+</html>

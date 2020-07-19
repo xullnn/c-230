@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Add Schedules</title>
+    <script type="text/javascript" src="handlebars.min-v4.5.3.js"></script>
+    <script type="text/javascript" src="exercise_add_schedules.js"></script>
+  </head>
+
+  <style media="screen">
+    body {
+      font-size: 1.2em;
+    }
+
+    form {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    fieldset {
+      width: 40%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      margin-bottom: 40px;
+    }
+
+    input {
+      width: 100%;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+  <body>
+    <h1>Add One or More Schedules</h1>
+    <button type="button" id="add_field">Add More Schedule</button>
+    <main>
+
+    </main>
+
+    <button type="submit" id="submit_form">Submit</button>
+
+  </body>
+
+  <script type="handlerbar" id="form_template">
+    <form>
+      <fieldset>
+        <label for="staff_id">Staff Name:</label>
+        <select class="staff_name" name="staff_id">
+          {{#each staffs}}
+          <option value="{{this.id}}"">{{this.name}}</option>
+          {{/each}}
+        </select>
+
+        <label for="date">Date:</label>
+        <input type="date" name="date">
+
+        <label for="time">Time:</label>
+        <input type="time" name="time">
+      </fieldset>
+    </form>
+  </script>
+</html>

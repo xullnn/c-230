@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Booking Schedules</title>
+    <script type="text/javascript" src="handlebars.min-v4.5.3.js"></script>
+  </head>
+
+  <style media="screen">
+    .detail {
+      display: none;
+    }
+
+    .show {
+      display: block;
+    }
+
+  </style>
+  <body>
+
+  </body>
+  <script type="handlebar" id="booking_template">
+    <div class="item">
+      <a href="#" class="date">{{date}}</a>
+      <p class="detail">{{detail}}</p>
+    </div>
+  </script>
+  <script type="text/javascript" src="exercise_bookings.js"></script>
+</html>

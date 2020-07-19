@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Booking Schedules</title>
+    <script type="text/javascript" src="handlebars.min-v4.5.3.js"></script>
+  </head>
+
+  <style media="screen">
+    body {
+      font-size: 1.2em;
+      padding-top: 10em;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    form {
+      display: flex;
+      align-items: start;
+      flex-direction: column;
+      padding: 10px;
+      margin: 30px;
+    }
+
+    fieldset {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+  </style>
+  <body>
+    <form id="booking_schedule">
+      <div class="field">
+        <caption for="choose_schedule">Please choose a shcdule: </caption>
+        <select id="schedules" name="schedule">
+
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" name="email">
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+
+  </body>
+
+  <script type="handlerbar" id="adding_student_form_template">
+    <form id="create_student">
+      <fieldset>
+        <div>
+          <label for="email">Student Email:</label>
+          <input type="email" name="email" value="{{email}}" required>
+        </div>
+        <div>
+          <label for="name">Name: </label>
+          <input type="text" name="name" required>
+        </div>
+        <div>
+          <label for="booking_sequence">Booking Sequence: </label>
+          <input type="number" name="booking_sequence" value="{{booking_sequence}}" required>
+        </div>
+        <button type="submit">Create Student And Booking</button>
+      </fieldset>
+    </form>
+  </script>
+  <script type="text/javascript" src="exercise_booking_v1.js"></script>
+</html>
