@@ -1,27 +1,63 @@
-Hi Victor:
+### Think about the life cycle of the whole app
 
-Sorry I was unable to check the clip you sent me before, that's partly because I had no access to Google service without a VNP in China yesterday. Anyway I did revision and here are some notes:
+### Test Check List
 
-- Problem in clip 1 and 3 is that the `Due Date` section can be create or update correctly
-  - first some issues about the `html` (You may notice I used html and css file provided in the instruction)
-    - the `<select>`s relate to due date have wrong `name` value(`due_day`, `due_month` and `due_year`) which are inconsistent with the server side requirement(`day`, `month` and `year`). So due date related data can't be created or updated correctly.
-    - another problem is the `year` options have no `value` set, but `day` and `month` do. So `year` data can't be collected from the form.
-    - here's a screenshot about the html.
-    ![](https://tva1.sinaimg.cn/large/007S8ZIlgy1gh1xzeunszj30f80bxdjn.jpg)
+CRUD
 
-  - I noticed the `name` value of `<select>` in html but failed noticing the inconsistency with server side requirement. So I tried to render data to edit form with the wrong key prefixed with `due_`, additionally I also made an error with the using of `=` operator which should have been `===`
+**create**
 
-  ![](https://tva1.sinaimg.cn/large/007S8ZIlgy1gh1yde8qpmj30dm0283z2.jpg)
+Before
+  - creation form is rendered correctly
+    - initial state
+    - after CRUD, no remnant data in the form
+  - creation form is dismissed correctly
+During
+  - forbid marking todo 'complete' during creating
+After
+  - count and due_date are updated accordingly in sidebar
+  - check the title and completion state of the newly created item in main panel
+  - open the item, check if all fields are established correctly
+  - back to main panel, check if done/undone works correctly
 
+**Read**
 
-- Problem in clip 2 is that remnant information is retained in "new form" after rendering and dismissing an edit form.
-  - this is because I didn't reset the form after dismissing an edit form.
-    - and this is solved by add a reset step when dismissing form.
+Read and edit form are overlapped in this app.
+- Choose both a completed and incomplete item
+- open the item, check if all fields are established correctly
 
-- About the file name of the main html file.
-  - I kept the originally file name `todo.html` and didn't change it back to the required `index.html`.
-    - I have fixed this now.
-  - Also I should have noticed issues in the `HTML` file I mentioned before. I nearly used it without any touching.
+Choosing different sections in sidebar should highlight correctly.
 
-If there's any new issue noticed by you, just let me know.
-Thanks for taking time leaving feedback!
+**Update**
+
+Including:
+  - update information about a todo
+  - change completion state of todo
+
+Update information about a todo
+  - open edit form, change every field of todo
+  - then save and reopen, check if all changes remain
+  - check if it can turn a todo back to state of 'no due date'
+    - notice the condition(both month and year)
+      - lack one of month and year
+      - lack both
+      - whether have 'day' has no effect
+
+> Uses key/value pairs to set the attributes of the todo. If the key/value pair is not present, its previous value is preserved.
+
+"Not present" means empty string?
+
+Change completion state of todo
+  - make a incomplete todo 'complete' from edit form
+  - make a already completed todo 'complete' should not change a thing
+
+Update/Complete a todo from a due date group should not change the 'active' section in the sidebar
+
+**Delete**
+
+- check if the numbers in different sections are changed accordingly.
+
+Delete a todo from a due date group should not change the 'active' section in the sidebar
+
+**Refresh Page**
+
+Refresh page after different kinds of operations, see if data is remained correctly.
