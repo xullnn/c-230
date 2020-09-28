@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Simple Calculator</title>
+  </head>
+  <body>
+    <div class="result_area">
+      <p id="result">0</p>
+    </div>
+
+    <hr>
+
+    <div class="calculating_area">
+      <input type="number" name="operand_1">
+
+      <select class="operator" name="operator">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+      </select>
+
+      <input type="number" name="operand_2" >
+
+      <button type="button" id="evaluate">=</button>
+    </div>
+
+  </body>
+
+  <script type="text/javascript">
+
+    (function() {
+      let firstOperand = document.querySelector('input[name=operand_1]'),
+          secondOperand = document.querySelector('input[name=operand_2]'),
+          operatorOption = document.querySelector('select[name=operator]'),
+          resultPanel = document.querySelector('#result');
+
+      return {
+        init: function() {
+          this.bindEvents();
+        },
+
+        bindEvents: function() {
+          document.querySelector('button').addEventListener('click', (e) => {
+            let first = Number(firstOperand.value),
+                second = Number(secondOperand.value),
+                operator = operatorOption.value,
+                result;
+
+            switch (operator) {
+              case '+':
+                result = first + second;
+                break;
+              case '-':
+                result = first - second;
+                break;
+              case '*':
+                result = first * second;
+                break;
+              case '/':
+                result = first / second;
+                break;
+            }
+
+            if (Math.floor(result) !== result) result = result.toFixed(2);
+
+            resultPanel.textContent = result;
+          })
+        }
+      }
+    })().init();
+
+
+  </script>
+</html>

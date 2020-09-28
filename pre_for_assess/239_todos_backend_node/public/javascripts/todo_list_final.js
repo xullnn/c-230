@@ -358,7 +358,6 @@ let Todo = {
     },
 
     getTodoById: function(id) { // don't have to fetch single item from server just get it from App.lists.todos
-      // return fetch('http://localhost:3000/api/todos/' + id).then(response => response.json())
       return App.lists.todos.find(e => e.id == id) // in order to return a promise
     },
 

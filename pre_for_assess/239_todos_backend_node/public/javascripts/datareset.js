@@ -93,3 +93,6 @@ function batchCreatingTodo(dataset) {
 function resetDataBase() {
   fetch('http://localhost:3000/api/reset');
 }
+
+resetDataBase()
+batchCreatingTodo(dataset)
