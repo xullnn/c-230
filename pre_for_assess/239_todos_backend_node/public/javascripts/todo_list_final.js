@@ -205,6 +205,7 @@ let App =  {
       }
 
       currentDl.classList.add("active");
+      // this.markActive() // logically the same
     },
 
     handleClickOnAllTodosGroup: function(e) { // update selected data set
@@ -264,6 +265,7 @@ let App =  {
     },
 
     bindEvents: function() {
+      // this --> App
       $(document.body).on('click', "label[for='new_item']", this.handleCreateNewTodo.bind(this));
 
       $(document.body).on('click', "tbody label", this.handleUpdateTodo.bind(this));
@@ -277,7 +279,17 @@ let App =  {
       $(document.body).on('click', "td.list_item", this.handleToggleComplete.bind(this));
 
       $(document.body).on('click', "td.delete", this.handleDeleteTodo.bind(this));
+
+      document.body.addEventListener('click', function(e) {
+        let target = e.target;
+        if (target.tagName === 'TD' && target.classList.contains('delete')) {
+          this.handleDeleteTodo(e);
+        } else {
+          return;
+        }
+      }.bind(this));
     },
+
 
     renderDataToForm: function(obj, form) {
       for(let key in obj) {
